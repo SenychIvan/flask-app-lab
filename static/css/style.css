@@ -1,0 +1,35 @@
+/* Основна секція профілю */
+.profile-section {
+    background: linear-gradient(135deg, #f6fff8, #e8f5e9);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Фото */
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    border-color: #779a16 !important; 
+}
+
+.profile-photo:hover {
+    transform: scale(1.05) rotate(-2deg);
+}
+
+.text-green {
+    color: #779a16;
+}
+
+.border-green {
+    border: 15px;
+    border-color: #779a16 !important;
+}

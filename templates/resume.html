@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="profile-section container py-5">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h1 class="mb-3 text-green fw-bold">Про себе</h1>
+            <p class="lead">Я студент Карпатського національного університету, люблю знімати відео і творити креатив.</p>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="{{ url_for('static', filename='images/myphoto.jpg') }}" alt="Моє фото"
+                 class="profile-photo img-fluid rounded-circle shadow-lg  border-green">
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Освіта</h2>
+    <p>КНУ ім. В. Стефаника, спеціальність — ІПЗ.</p>
+</section>
+
+<section>
+    <h2>Навички</h2>
+    <ul>
+        <li>Python, Flask</li>
+        <li>HTML, CSS</li>
+        <li>Git, GitHub</li>
+        <li>UI/UX, Figma</li>
+        <li>Photoshop</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Технології</h2>
+    <p>VS Code, Linux (Ubuntu), Git, Canva, CupCut, Figma</p>
+</section>
+
+<section>
+    <h2>Проекти</h2>
+    <p>Створення Flask-додатку для університетських лабораторних робіт.</p>
+</section>
+{% endblock %}
