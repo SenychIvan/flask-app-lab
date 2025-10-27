@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Вітаю, {{ username }}!</h2>
+  <a href="{{ url_for('users.logout') }}" class="btn btn-danger mb-3">Вийти</a>
+
+  <hr>
+  <h4>Ваші cookies:</h4>
+  <table class="table table-bordered">
+    <tr><th>Ключ</th><th>Значення</th><th>Дія</th></tr>
+    {% for key, value in cookies.items() %}
+      <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+        <td><a href="{{ url_for('users.delete_cookie', key=key) }}" class="btn btn-sm btn-outline-danger">Видалити</a></td>
+      </tr>
+    {% else %}
+      <tr><td colspan="3" class="text-center">Немає cookies</td></tr>
+    {% endfor %}
+  </table>
+
+  <hr>
+  <h4>Додати cookie</h4>
+  <form method="POST" action="{{ url_for('users.add_cookie') }}">
+    <div class="row">
+      <div class="col"><input type="text" name="key" class="form-control" placeholder="Ключ" required></div>
+      <div class="col"><input type="text" name="value" class="form-control" placeholder="Значення" required></div>
+      <div class="col"><button class="btn btn-primary" type="submit">Додати</button></div>
+    </div>
+  </form>
+
+  <hr>
+  <h4>Теми</h4>
+  <a href="{{ url_for('users.theme', mode='light') }}" class="btn btn-light">Світла</a>
+  <a href="{{ url_for('users.theme', mode='dark') }}" class="btn btn-dark">Темна</a>
+</div>
+{% endblock %}

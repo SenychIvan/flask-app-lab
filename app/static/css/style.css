@@ -33,3 +33,38 @@
     border: 15px;
     border-color: #779a16 !important;
 }
+
+/* ===== Світла тема ===== */
+body.light {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+body.light .navbar {
+    background-color: #198754 !important;
+}
+
+body.light .table {
+    background-color: white;
+}
+
+/* ===== Темна тема ===== */
+body.dark {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+body.dark .navbar {
+    background-color: #343a40 !important;
+}
+
+body.dark .table {
+    background-color: #1f1f1f;
+    color: #fff;
+    border-color: #444;
+}
+
+/* Анімація зміни теми */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
