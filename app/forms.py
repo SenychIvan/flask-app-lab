@@ -4,10 +4,12 @@ from wtforms.validators import DataRequired, Email, Length
 
 # -------- Контактна форма --------
 class ContactForm(FlaskForm):
-    name = StringField("Ім'я", validators=[DataRequired(message="Поле обов'язкове!")])
+    name = StringField("Name", validators=[DataRequired(message="Поле обов'язкове!")])
     email = StringField("Email", validators=[DataRequired(), Email(message="Некоректний email!")])
-    message = TextAreaField("Повідомлення", validators=[DataRequired(), Length(min=5)])
-    submit = SubmitField("Надіслати")
+    phone = StringField("Phone", validators=[DataRequired(), Length(min=5, max=20, message="Некоректний номер телефону!")])
+    subject = StringField("Subject", validators=[DataRequired(), Length(max=100, message="Занадто довга тема!")])
+    message = TextAreaField("Message", validators=[DataRequired(), Length(min=5, message="Повідомлення має бути довшим!")])
+    submit = SubmitField("Send")
 
 # -------- Форма входу --------
 class LoginForm(FlaskForm):

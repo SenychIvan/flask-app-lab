@@ -5,6 +5,12 @@ import logging
 # створюємо blueprint для головних сторінок
 main = Blueprint('main', __name__)
 
+# ✅ Додай цей маршрут для головної сторінки
+@main.route('/')
+def home():
+    return render_template('resume.html')  # або 'contacts.html', якщо немає resume.html
+
+
 @main.route("/contacts", methods=["GET", "POST"])
 def contacts():
     form = ContactForm()

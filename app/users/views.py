@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, session, make_response
+from flask import Blueprint, render_template, redirect, url_for, flash, session, request, make_response
+from app.forms import LoginForm  # ✅ імпортуємо LoginForm з forms.py
 
+# створюємо blueprint
 users_bp = Blueprint('users', __name__, template_folder='templates')
-
 
 # ---------------------- старі маршрути ----------------------
 @users_bp.route('/hi/<name>')
@@ -14,25 +15,31 @@ def admin():
     return redirect(url_for("users.greetings", name="Administrator", age=45))
 
 
-# ---------------------- нові маршрути (лаб 4) ----------------------
+# ---------------------- оновлений логін (Flask-WTF, лаб 5) ----------------------
 @users_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+    form = LoginForm()  # створюємо форму
 
-        # прості тестові дані
+    if form.validate_on_submit():  # якщо форма валідна
+        username = form.username.data
+        password = form.password.data
+        remember = form.remember.data
+
+        # тестові логін-дані
         if username == 'ivan' and password == '12345':
             session['user'] = username
-            flash('Вхід успішний!', 'success')
-            return redirect(url_for('users.profile'))
+            msg = f"Вхід успішний! {'(запам’ятати активовано)' if remember else ''}"
+            flash(msg, 'success')
+            return redirect(url_for('users.profile'))  # ✅ PRG
         else:
             flash('Невірні дані для входу!', 'danger')
             return redirect(url_for('users.login'))
 
-    return render_template('users/login.html')
+    # GET або невалідна форма
+    return render_template('users/login.html', form=form)
 
 
+# ---------------------- профіль користувача ----------------------
 @users_bp.route('/profile')
 def profile():
     if 'user' not in session:
@@ -41,10 +48,11 @@ def profile():
 
     username = session['user']
     cookies = request.cookies
-    theme = request.cookies.get('theme', 'light')  # 🟢 додаємо зчитування теми
+    theme = request.cookies.get('theme', 'light')
     return render_template('users/profile.html', username=username, cookies=cookies, theme=theme)
 
 
+# ---------------------- вихід ----------------------
 @users_bp.route('/logout')
 def logout():
     session.pop('user', None)
@@ -63,7 +71,7 @@ def add_cookie():
     value = request.form.get('value')
     resp = make_response(redirect(url_for('users.profile')))
     resp.set_cookie(key, value)
-    flash(f'Кукі \"{key}\" додано!', 'success')
+    flash(f'Кукі "{key}" додано!', 'success')
     return resp
 
 
@@ -71,7 +79,7 @@ def add_cookie():
 def delete_cookie(key):
     resp = make_response(redirect(url_for('users.profile')))
     resp.delete_cookie(key)
-    flash(f'Кукі \"{key}\" видалено!', 'info')
+    flash(f'Кукі "{key}" видалено!', 'info')
     return resp
 
 
