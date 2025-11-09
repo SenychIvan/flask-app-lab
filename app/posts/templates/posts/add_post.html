@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "includes/_forms.html" import render_field %}
+
+{% block content %}
+<div class="container mt-5" style="max-width:600px;">
+  <h3 class="mb-4 text-center">{{ 'Edit Post' if edit else 'Add New Post' }}</h3>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    {{ render_field(form.title) }}
+    {{ render_field(form.content) }}
+    {{ render_field(form.category) }}
+    <div class="form-check mb-3">
+      {{ form.is_active(class="form-check-input") }}
+      {{ form.is_active.label(class="form-check-label") }}
+    </div>
+    {{ render_field(form.publish_date) }}
+    {{ form.submit(class="btn btn-dark w-100") }}
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{# app/templates/includes/_forms.html #}
+
+{% macro render_field(field) -%}
+  <div class="mb-3">
+    {{ field.label(class="form-label fw-bold") }}
+    {{ field(class="form-control", placeholder=field.label.text) }}
+    {% if field.errors %}
+      <div class="text-danger small mt-1">
+        {% for error in field.errors %}
+          {{ error }}<br>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{%- endmacro %}
