@@ -2,8 +2,10 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy import MetaData
+
 from app.config import DevelopmentConfig, TestingConfig, ProductionConfig
 
+# naming conventions
 convention = {
     "ix": 'ix_%(column_0_label)s',
     "uq": "uq_%(table_name)s_%(column_0_name)s",
@@ -14,11 +16,8 @@ convention = {
 
 metadata = MetaData(naming_convention=convention)
 
-# Ініціалізуємо ORM
 db = SQLAlchemy(metadata=metadata)
 migrate = Migrate()
-
-from app.posts.models import Post
 
 
 def create_app(config_name="development"):
@@ -35,6 +34,12 @@ def create_app(config_name="development"):
     # Ініціалізація розширень
     db.init_app(app)
     migrate.init_app(app, db)
+
+    # 🔥 Імпортуємо моделі ТУТ — після ініціалізації db
+    #    щоб уникнути циклічного імпорту
+    from app.users.models import User
+    from app.posts.models import Post
+    from app.products.models import Product, Category
 
     # Реєстрація blueprint'ів
     from app.views import main

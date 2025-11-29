@@ -1,0 +1,14 @@
+<p>
+  <b>Tags:</b>
+  {% for tag in post.tags %}
+  <span class="badge bg-primary">{{ tag.name }}</span>
+  {% endfor %}
+</p>
+<p>
+  <strong>Теги:</strong>
+  {% for tag in post.tags %}
+  <span class="badge bg-info text-dark">{{ tag.name }}</span>
+  {% else %}
+  <span class="text-muted">— немає тегів —</span>
+  {% endfor %}
+</p>

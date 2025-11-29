@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <h2 class="text-primary mb-3">Список користувачів</h2>
+
+  <a href="{{ url_for('users.add_user') }}" class="btn btn-success mb-3"
+    >+ Додати користувача</a
+  >
+
+  <table class="table table-bordered table-striped text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Ім’я</th>
+        <th>Email</th>
+        <th>Пости</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ u.email }}</td>
+        <td>
+          <a
+            href="{{ url_for('users.user_posts', user_id=u.id) }}"
+            class="btn btn-info btn-sm"
+          >
+            Переглянути пости
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
